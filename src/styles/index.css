@@ -1,23 +1,25 @@
 :export {
   menuText: #bfcbd9;
-  menuActiveText: #ffffff;
+  menuActiveText: #49aeed;
   subMenuActiveText: #f4f4f5;
   menuBg: #304156;
   menuHover: #263445;
   subMenuBg: #1f2d3d;
   subMenuHover: #001528;
   sideBarWidth: 210px;
+  hideSideBarWidth: 54px;
 }
 
 :export {
   menuText: #bfcbd9;
-  menuActiveText: #ffffff;
+  menuActiveText: #49aeed;
   subMenuActiveText: #f4f4f5;
   menuBg: #304156;
   menuHover: #263445;
   subMenuBg: #1f2d3d;
   subMenuHover: #001528;
   sideBarWidth: 210px;
+  hideSideBarWidth: 54px;
 }
 
 #app .main-container {
@@ -181,6 +183,10 @@
 .el-menu--vertical > .el-menu--popup::-webkit-scrollbar-thumb {
   background: #99a9bf;
   border-radius: 20px;
+}
+
+.el-avatar {
+  --el-avatar-background-color: none;
 }
 
 html,

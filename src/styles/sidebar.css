@@ -1,15 +1,18 @@
 :export {
   menuText: #bfcbd9;
-  menuActiveText: #ffffff;
+  menuActiveText: #49aeed;
   subMenuActiveText: #f4f4f5;
   menuBg: #304156;
   menuHover: #263445;
   subMenuBg: #1f2d3d;
   subMenuHover: #001528;
   sideBarWidth: 210px;
+  hideSideBarWidth: 54px;
+  sideBarDuration: 0.28s;
 }
 
 #app .main-container {
+  transition: margin-left 0.28s;
   min-height: 100%;
   transition: margin-left 0.28s;
   margin-left: 210px;
@@ -17,6 +20,7 @@
 }
 
 #app .sidebar-container {
+  transition: width 0.28s;
   position: fixed;
   top: 0;
   bottom: 0;
