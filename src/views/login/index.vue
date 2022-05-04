@@ -1,8 +1,9 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form" :model="loginForm" :rules="loginRules" ref="loginFormRef">
+    <el-form class="login-form" ref="loginFromRef" :model="loginForm" :rules="loginRules">
       <div class="title-container">
-        <h3 class="title">用户登录</h3>
+        <h3 class="title">{{ $t('msg.login.title') }}</h3>
+        <lang-select class="lang-select" effect="light"></lang-select>
       </div>
 
       <el-form-item prop="username">
@@ -16,24 +17,28 @@
         <span class="svg-container">
           <svg-icon icon="password" />
         </span>
-        <el-input placeholder="password" name="password" v-model="loginForm.password" :type="passwordType" />
+        <el-input placeholder="password" name="password" :type="passwordType" v-model="loginForm.password" />
         <span class="show-pwd">
           <svg-icon :icon="passwordType === 'password' ? 'eye' : 'eye-open'" @click="onChangePwdType" />
         </span>
       </el-form-item>
 
-      <el-button type="primary" style="width: 100%; margin-bottom: 30px" :loading="loading" @click="handleLogin"
-        >登录
+      <el-button type="primary" style="width: 100%; margin-bottom: 30px" :loading="loading" @click="handleLogin">
+        {{ $t('msg.login.loginBtn') }}
       </el-button>
+
+      <div class="tips" v-html="$t('msg.login.desc')"></div>
     </el-form>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import LangSelect from '@/components/LangSelect'
+import { ref, computed } from 'vue'
 import { validatePassword } from './rules'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 // 数据源
 const loginForm = ref({
@@ -41,12 +46,15 @@ const loginForm = ref({
   password: '123456'
 })
 // 验证规则
+const i18n = useI18n()
 const loginRules = ref({
   username: [
     {
       required: true,
       trigger: 'blur',
-      message: '用户名为必填项'
+      message: computed(() => {
+        return i18n.t('msg.login.usernameRule')
+      })
     }
   ],
   password: [
@@ -70,19 +78,19 @@ const onChangePwdType = () => {
 
 // 登录动作处理
 const loading = ref(false)
-const loginFormRef = ref(null)
+const loginFromRef = ref(null)
 const store = useStore()
 const router = useRouter()
 const handleLogin = () => {
-  loginFormRef.value.validate((valid) => {
+  loginFromRef.value.validate((valid) => {
     if (!valid) return
-    console.log(loginForm.value)
+
     loading.value = true
     store
       .dispatch('user/login', loginForm.value)
       .then(() => {
         loading.value = false
-        //  登录后操作
+        // 登录后操作
         router.push('/')
       })
       .catch((err) => {
@@ -126,14 +134,27 @@ $cursor: #fff;
       width: 85%;
 
       input {
-        background: transparent;
-        border: 0px;
-        -webkit-appearance: none;
-        border-radius: 0px;
+        background: $bg;
+        border: 0;
         padding: 12px 5px 12px 15px;
         color: $light_gray;
         height: 47px;
         caret-color: $cursor;
+        margin-left: -12px;
+        margin-right: -12px;
+      }
+    }
+  }
+
+  .tips {
+    font-size: 16px;
+    line-height: 28px;
+    color: #fff;
+    margin-bottom: 10px;
+
+    span {
+      &:first-of-type {
+        margin-right: 16px;
       }
     }
   }
@@ -154,6 +175,17 @@ $cursor: #fff;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
+    }
+
+    ::v-deep(.lang-select) {
+      position: absolute;
+      top: 4px;
+      right: 0;
+      background-color: white;
+      font-size: 22px;
+      padding: 4px;
+      border-radius: 4px;
+      cursor: pointer;
     }
   }
 
