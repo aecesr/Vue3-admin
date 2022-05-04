@@ -14,6 +14,7 @@
 </template>
 
 <script setup>
+
 import MenuItem from './MenuItem'
 // 定义 props
 defineProps({
