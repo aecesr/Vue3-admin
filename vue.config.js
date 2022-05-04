@@ -20,5 +20,16 @@ module.exports = defineConfig({
         symbolId: 'icon-[name]'
       })
       .end()
+  },
+  devServer: {
+    // 配置反向代理
+    proxy: {
+      // 当地址中有/api的时候会触发代理机制
+      '/api': {
+        // 要代理的服务器地址  这里不用写 api
+        target: 'http://127.0.0.1:4523/mock/934764/',
+        changeOrigin: true // 是否跨域
+      }
+    }
   }
 })
