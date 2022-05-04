@@ -9,17 +9,6 @@
   sideBarWidth: 210px;
 }
 
-:export {
-  menuText: #bfcbd9;
-  menuActiveText: #ffffff;
-  subMenuActiveText: #f4f4f5;
-  menuBg: #304156;
-  menuHover: #263445;
-  subMenuBg: #1f2d3d;
-  subMenuHover: #001528;
-  sideBarWidth: 210px;
-}
-
 #app .main-container {
   min-height: 100%;
   transition: margin-left 0.28s;
@@ -181,53 +170,4 @@
 .el-menu--vertical > .el-menu--popup::-webkit-scrollbar-thumb {
   background: #99a9bf;
   border-radius: 20px;
-}
-
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
-}
-
-#app {
-  height: 100%;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-  margin: 0;
-  padding: 0;
-}
-
-a:focus,
-a:active {
-  outline: none;
-}
-
-a,
-a:focus,
-a:hover {
-  cursor: pointer;
-  color: inherit;
-  text-decoration: none;
-}
-
-div:focus {
-  outline: none;
-}
-
-.clearfix:after {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: ' ';
-  clear: both;
-  height: 0;
 }
