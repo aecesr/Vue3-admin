@@ -35,6 +35,7 @@
     "husky": "^7.0.4",
     "sass": "^1.32.7",
     "sass-loader": "^12.0.0",
+    "svg-sprite-loader": "^6.0.11",
     "vue-cli-plugin-element-plus": "~0.0.13"
   },
   "config": {
