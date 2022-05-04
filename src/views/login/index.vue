@@ -1,37 +1,68 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form">
+    <el-form class="login-form" :model="loginForm" :rules="loginRules">
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
 
       <el-form-item prop="username">
         <span class="svg-container">
-          <!-- // 用户名 -->
           <svg-icon icon="user" />
         </span>
-        <el-input placeholder="username" name="username" type="text" />
+        <el-input placeholder="username" name="username" type="text" v-model="loginForm.username" />
       </el-form-item>
 
       <el-form-item prop="password">
         <span class="svg-container">
           <svg-icon icon="password" />
         </span>
-        <el-input placeholder="password" name="password" />
+        <el-input placeholder="password" name="password" v-model="loginForm.password" :type="passwordType" />
         <span class="show-pwd">
-          <svg-icon icon="eye" />
+          <svg-icon :icon="passwordType === 'password' ? 'eye' : 'eye-open'" @click="onChangePwdType" />
         </span>
       </el-form-item>
+
       <el-button type="primary" style="width: 100%; margin-bottom: 30px">登录</el-button>
     </el-form>
   </div>
 </template>
 
 <script setup>
-// 导入组件之后无需注册可直接使用
-import { Avatar, Edit } from '@element-plus/icons'
-import SvgIcon from '@/components/SvgIcon'
-import {} from 'vue'
+import { ref } from 'vue'
+import { validatePassword } from './rules'
+
+// 数据源
+const loginForm = ref({
+  username: 'super-admin',
+  password: '123456'
+})
+// 验证规则
+const loginRules = ref({
+  username: [
+    {
+      required: true,
+      trigger: 'blur',
+      message: '用户名为必填项'
+    }
+  ],
+  password: [
+    {
+      required: true,
+      trigger: 'blur',
+      validator: validatePassword()
+    }
+  ]
+})
+
+// 处理密码框文本显示状态
+const passwordType = ref('password')
+const onChangePwdType = () => {
+  if (passwordType.value === 'password') {
+    passwordType.value = 'text'
+  } else {
+    passwordType.value = 'password'
+  }
+}
 </script>
 
 <style lang="scss" scoped>
