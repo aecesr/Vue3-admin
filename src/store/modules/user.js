@@ -1,9 +1,18 @@
 import { login } from '@/api/sys'
 import md5 from 'md5'
+import { setItem, getItem } from '@/utils/storage'
+import { TOKEN } from '@/constant'
 export default {
   namespaced: true,
-  state: () => ({}),
-  mutations: {},
+  state: () => ({
+    token: getItem(TOKEN) || ''
+  }),
+  mutations: {
+    setToken(state, token) {
+      state.token = token
+      setItem(TOKEN, token)
+    }
+  },
   actions: {
     login(context, userInfo) {
       const { username, password } = userInfo
@@ -14,7 +23,9 @@ export default {
           password: md5(password)
         })
           .then((data) => {
-            resolve(data)
+            resolve(data.data)
+            console.log(data.data)
+            this.commit('user/setToken', data.data.data.token)
           })
           .catch((err) => {
             reject(err)
