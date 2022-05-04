@@ -1,6 +1,7 @@
 <template>
   <!-- 一级 menu 菜单 -->
   <el-menu
+    :collapse="!$store.getters.sidebarOpened"
     :default-active="activeMenu"
     :background-color="$store.getters.cssVar.menuBg"
     :text-color="$store.getters.cssVar.menuText"
@@ -14,7 +15,7 @@
 <script setup>
 import SidebarItem from './SidebarItem.vue'
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { filterRouters, generateMenus } from '@/utils/route'
 
 const router = useRouter()
