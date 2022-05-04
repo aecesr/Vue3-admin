@@ -2,7 +2,9 @@
   <div>
     <div class="logo-container">
       <el-avatar :size="logoHeight" shape="square" src="http://47.96.31.161:9000/vue3/logo-small@2x.png" />
-      <h1 class="logo-title" v-if="$store.getters.sidebarOpened">super-admin</h1>
+      <h1 class="logo-title" v-if="$store.getters.sidebarOpened">
+        {{ $t('msg.test') }}
+      </h1>
     </div>
     <el-scrollbar>
       <sidebar-menu></sidebar-menu>
