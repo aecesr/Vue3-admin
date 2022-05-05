@@ -14,6 +14,7 @@
 </template>
 
 <script setup>
+import { generateNewStyle, writeNewStyle } from '@/utils/theme'
 import { useStore } from 'vuex'
 import { defineEmits, ref } from 'vue'
 
@@ -53,13 +54,19 @@ const mColor = ref(store.getters.mainColor)
 const closed = () => {
   emits('update:modelValue', false)
 }
+
 /**
  * 确定
  * 1. 修改主题色
  * 2. 保存最新的主题色
  * 3. 关闭 dialog
  */
+
 const comfirm = async () => {
+  // 1.1 获取主题色
+  const newStyleText = await generateNewStyle(mColor.value)
+  // 1.2 写入最新主题色
+  writeNewStyle(newStyleText)
   // 2. 保存最新的主题色
   store.commit('theme/setMainColor', mColor.value)
   // 3. 关闭 dialog
