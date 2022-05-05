@@ -12,22 +12,36 @@
       :remote-method="querySearch"
       @change="onSelectChange"
     >
-      <el-option v-for="option in 5" :key="option" :label="option" :value="option"></el-option>
+      <el-option
+        v-for="option in searchOptions"
+        :key="option.item.path"
+        :label="option.item.title.join(' > ')"
+        :value="option.item"
+      >
+      </el-option>
     </el-select>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { filterRouters, generateMenus } from '@/utils/route'
+import { computed, ref } from 'vue'
+import { generateRoutes } from './FuseData'
+import Fuse from 'fuse.js'
+import { filterRouters } from '@/utils/route'
 import { useRouter } from 'vue-router'
 
-import Fuse from 'fuse.js'
+// 检索数据源
+const router = useRouter()
+const searchPool = computed(() => {
+  const filterRoutes = filterRouters(router.getRoutes())
+  return generateRoutes(filterRoutes)
+})
+console.log(searchPool)
 
 /**
  * 搜索库相关
  */
-const fuse = new Fuse(list, {
+const fuse = new Fuse(searchPool.value, {
   // 是否按优先级进行排序
   shouldSort: true,
   // 匹配长度超过这个值的才会被认为是匹配的
@@ -58,22 +72,20 @@ const onShowClick = () => {
 
 // search 相关
 const search = ref('')
+// 搜索结果
+const searchOptions = ref([])
 // 搜索方法
-const querySearch = () => {
-  console.log('querySearch')
+const querySearch = (query) => {
+  if (query !== '') {
+    searchOptions.value = fuse.search(query)
+  } else {
+    searchOptions.value = []
+  }
 }
 // 选中回调
-const onSelectChange = () => {
-  console.log('onSelectChange')
+const onSelectChange = (val) => {
+  router.push(val.path)
 }
-// 检索数据源
-const router = useRouter()
-const searchPool = computed(() => {
-  const filterRoutes = filterRouters(router.getRoutes())
-  console.log(generateMenus(filterRoutes))
-  return generateMenus(filterRoutes)
-})
-console.log(searchPool)
 </script>
 
 <style lang="scss" scoped>
