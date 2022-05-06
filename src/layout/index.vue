@@ -16,7 +16,7 @@
 </template>
 
 <script setup>
-import TagsView from '@/components/TagsView'
+import TagsView from '@/components/TagsView/index'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import AppMain from './components/AppMain'
