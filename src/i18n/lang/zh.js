@@ -89,10 +89,9 @@ export default {
     feature: '功能',
     chapter: '章节',
     author: '作者',
-    name: 'Sunday',
-    job: '一个前端开发程序猿',
-    Introduction:
-      '高级技术专家，曾就职于国内一线互联网公司，统筹过的多个大型项目用户数已过千万级。致力于研究大前端技术，多次受邀参加国内前端技术分享会，如：2018 年 Google 中国技术分享会。'
+    name: '曹红亮',
+    job: '一位好学生',
+    Introduction: '一位好学生，有着超出常人的意志力和天马行空的想象力'
   },
   userInfo: {
     print: '打印',
