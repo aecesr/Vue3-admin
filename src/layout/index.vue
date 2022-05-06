@@ -2,6 +2,7 @@
   <div class="app-wrapper" :class="[$store.getters.sidebarOpened ? 'openSidebar' : 'hideSidebar']">
     <!-- 左侧 menu -->
     <sidebar id="guide-sidebar" class="sidebar-container" :style="{ backgroundColor: $store.getters.cssVar.menuBg }" />
+    <tags-view id="guide-tags"></tags-view>
     <div class="main-container">
       <div class="fixed-header">
         <!-- 顶部的 navbar -->
