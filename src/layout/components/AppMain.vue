@@ -17,22 +17,8 @@ import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { generateTitle, watchSwitchLang } from '@/utils/i18n'
 
-/**
- * 国际化 tags
- */
-watchSwitchLang(() => {
-  store.getters.tagsViewList.forEach((route, index) => {
-    store.commit('app/changeTagsView', {
-      index,
-      tag: {
-        ...route,
-        title: getTitle(route)
-      }
-    })
-  })
-})
-
 const route = useRoute()
+const store = useStore()
 
 /**
  * 生成 title
@@ -52,7 +38,7 @@ const getTitle = (route) => {
 /**
  * 监听路由变化
  */
-const store = useStore()
+
 watch(
   route,
   (to, from) => {
@@ -72,6 +58,20 @@ watch(
     immediate: true
   }
 )
+/**
+ * 国际化 tags
+ */
+watchSwitchLang(() => {
+  store.getters.tagsViewList.forEach((route, index) => {
+    store.commit('app/changeTagsView', {
+      index,
+      tag: {
+        ...route,
+        title: getTitle(route)
+      }
+    })
+  })
+})
 </script>
 
 <style lang="scss" scoped>
