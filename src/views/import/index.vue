@@ -1,9 +1,9 @@
 <template>
-  <div class=""></div>
+  <uploadExcel></uploadExcel>
 </template>
 
-<script>
-export default {}
+<script setup>
+import UploadExcel from '@/components/UploadExcel'
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>
