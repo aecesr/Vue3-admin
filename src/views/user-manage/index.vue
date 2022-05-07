@@ -9,6 +9,7 @@
         <el-button type="success">
           {{ $t('msg.excel.exportExcel') }}
         </el-button>
+        <el-button type="danger" size="mini" @click="onRemoveClick(row)">{{ $t('msg.excel.remove') }}</el-button>
       </div>
     </el-card>
     <el-card>
@@ -62,17 +63,18 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-
-import { ref } from 'vue'
 import { getUserManageList } from '@/api/user-manage'
 import { watchSwitchLang } from '@/utils/i18n'
-
+import { ref, onActivated } from 'vue'
+import { useI18n } from 'vue-i18n'
 // 数据相关
 const tableData = ref([])
 const total = ref(0)
 const page = ref(1)
 const size = ref(5)
 const router = useRouter()
+const i18n = useI18n()
+
 /**
  * excel 导入点击事件
  */
@@ -107,6 +109,22 @@ const handleSizeChange = (currentSize) => {
 const handleCurrentChange = (currentPage) => {
   page.value = currentPage
   getListData()
+}
+
+// 处理导入用户后数据不重新加载的问题
+onActivated(getListData)
+/**
+ * 删除按钮点击事件
+ */
+const onRemoveClick = (row) => {
+  ElMessageBox.confirm(i18n.t('msg.excel.dialogTitle1') + row.username + i18n.t('msg.excel.dialogTitle2'), {
+    type: 'warning'
+  }).then(async () => {
+    await deleteUser(row._id)
+    ElMessage.success(i18n.t('msg.excel.removeSuccess'))
+    // 重新渲染数据
+    getListData()
+  })
 }
 </script>
 
