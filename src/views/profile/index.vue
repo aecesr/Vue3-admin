@@ -10,6 +10,7 @@
             <el-tab-pane :label="$t('msg.profile.feature')" name="feature">
               <feature :features="featureData" />
             </el-tab-pane>
+
             <el-tab-pane :label="$t('msg.profile.chapter')" name="chapter">
               <chapter />
             </el-tab-pane>
