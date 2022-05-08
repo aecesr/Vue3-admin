@@ -44,9 +44,11 @@ import LangSelect from '@/components/LangSelect'
 import Hamburger from '@/components/Hamburger/index.vue'
 import Breadcrumb from '@/components/Breadcrumb'
 import { useStore } from 'vuex'
+import { resetRouter } from '@/router'
 
 const store = useStore()
 const logout = () => {
+  resetRouter()
   store.dispatch('user/logout')
 }
 </script>
