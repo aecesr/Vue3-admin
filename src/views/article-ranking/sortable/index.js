@@ -21,7 +21,11 @@ export const initSortable = (tableData, cb) => {
     async onEnd(event) {
       const { newIndex, oldIndex } = event
       // 修改数据
-      alert('拖拽完毕', newIndex, oldIndex)
+      alert(tableData.value[oldIndex].ranking + ',' + tableData.value[newIndex].ranking)
+      await articleSort({
+        initRanking: tableData.value[oldIndex].ranking,
+        finalRanking: tableData.value[newIndex].ranking
+      })
       ElMessage.success({
         message: i18n.global.t('msg.article.sortSuccess'),
         type: 'success'
