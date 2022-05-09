@@ -5,7 +5,12 @@
         <el-table-column :label="$t('msg.article.ranking')" prop="ranking"></el-table-column>
         <el-table-column :label="$t('msg.article.title')" prop="title"></el-table-column>
         <el-table-column :label="$t('msg.article.author')" prop="author"></el-table-column>
-        <el-table-column :label="$t('msg.article.publicDate')" prop="publicDate"> </el-table-column>
+        <el-table-column :label="$t('msg.article.publicDate')">
+          <template #default="{ row }">
+            {{ $filters.relativeTime(row.publicDate) }}
+          </template>
+        </el-table-column>
+
         <el-table-column :label="$t('msg.article.desc')" prop="desc"></el-table-column>
         <el-table-column :label="$t('msg.article.action')">
           <el-button type="primary" size="mini" @click="onShowClick(row)">{{ $t('msg.article.show') }}</el-button>
